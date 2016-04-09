@@ -260,10 +260,62 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>Location of report:</label>
-                                <input class="form-control" placeholder="Enter text">
+                                <label>Location of report (LAT ):</label>
+                                <DIV class="form-control"  id ="lat"> </DIV>
                                     <small class="text-muted">Your address is private and will not be shared. Sharing your location helps
     													us track our data and locate problem areas in the community</small>
+														
+														  </div>
+                              <div class="form-group">
+														 <label>Location of report (LONG):</label>
+                                <div class="form-control"  id ="long"> </div>
+                                    <small class="text-muted">Your address is private and will not be shared. Sharing your location helps
+    													us track our data and locate problem areas in the community</small>
+														</div>
+														<div id="google_canvas" class="form-group" style ="width:1074px; height:800px ;Overflow:default"></div>
+	
+		<script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+	
+	    <script>
+	    (function() {
+	    
+	    	if(!!navigator.geolocation) {
+	    	
+	    		var map;
+	    	
+		    	var mapOptions = {
+		    		zoom: 15,
+		    		mapTypeId: google.maps.MapTypeId.ROADMAP
+		    	};
+		    	
+		    	map = new google.maps.Map(document.getElementById('google_canvas'), mapOptions);
+	    	
+	    		navigator.geolocation.getCurrentPosition(function(position) {
+	    		
+		    		var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		    		
+		    		var infowindow = new google.maps.InfoWindow({
+		    			map: map,
+		    			position: geolocate,
+		    			content:
+		    				'<p>You are here </p>' +
+		    				'<p>Latitude: ' + position.coords.latitude + '</p>' +
+		    				'<p>Longitude: ' + position.coords.longitude + '</p>'
+		    		});
+		    		document.getElementById('lat').innerHTML = position.coords.latitude  ;
+					document.getElementById('long').innerHTML = position.coords.longitude ;
+					//alert ();
+		    		map.setCenter(geolocate);
+		    		
+	    		});
+	    		
+	    	} else {
+	    		document.getElementById('google_canvas').innerHTML = 'No Geolocation Support.';
+	    	}
+	    	
+	    })();
+	    </script>
+	
                             </div>
 
                             <div class="form-group">
